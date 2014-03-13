@@ -26,4 +26,11 @@ describe 'Game' do
       new_game.available_cards.length.should eq 38
     end
   end
+  describe 'is_over?' do
+    it 'returns true if the game is over' do
+      new_game = Game.create('Bill', 'Ted')
+      new_game.available_cards = []
+      new_game.is_over?.should eq true
+    end
+  end
 end

@@ -9,5 +9,4 @@ class Card
     @number = @numbers[number_index]
     @suit = @suits[suit_index]
   end
-
 end

@@ -1,9 +1,6 @@
-# require 'deck'
-require 'card'
-require 'player'
 
 class Game
-  attr_reader :available_cards, :player_one, :player_two
+  attr_accessor :available_cards, :player_one, :player_two, :winner, :asking_player, :responding_player
 
   def Game.create(name_one, name_two)
     new_game = Game.new(name_one, name_two)
@@ -13,6 +10,7 @@ class Game
     new_game.player_two.set_hand(hand_two)
     @asking_player = @player_one
     @responding_player = @player_two
+    @winner = ''
     new_game
   end
 
@@ -45,10 +43,10 @@ class Game
       @responding_player.remove_card(card)
       @asking_player.check_for_pairs
     else
+      puts "You get to GO FISH!!\n\n"
       go_fish(@asking_player)
       @asking_player.check_for_pairs
     end
-    @switch_player
   end
 
   def switch_player
@@ -68,11 +66,23 @@ class Game
     @upper_range -= 1
     player.check_for_pairs
   end
-end
 
-#make two hands of random Cards
-#use all_available when doing draw_card function to make sure you're not reusing Cards
-#if all_available is ever empty, game over
-#make hand: every new card is random, so just create a bunch of cards
-#go-fish: just make new card, because they're all random
+  def is_over?
+    if @available_cards.length > 0
+      false
+    else
+      true
+    end
+  end
+
+  def who_wins
+    if @player_one.pairs_found > @player_two.pairs_found
+      @winner = @player_one.name
+    elsif @player_two.pairs_found > @player_one.pairs_found
+      @winner = @player_two.name
+    else
+      @winner = 'Nobody!'
+    end
+  end
+end
 

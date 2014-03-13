@@ -45,4 +45,12 @@ class Player
       end
     end
   end
+
+  def show_hand
+    hand_string = ''
+    hand.each do |card|
+      hand_string += "[#{card.number} of #{card.suit}] "
+    end
+    hand_string
+  end
 end
