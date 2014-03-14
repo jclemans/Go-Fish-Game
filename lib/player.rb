@@ -23,12 +23,7 @@ class Player
 
   def match_card?(card_number)
     #select
-    hand.each do |card|
-      if card.number.downcase == card_number.downcase
-        return true
-      end
-      false
-    end
+    @hand.any? {|card| card.number == card_number}
   end
 
   def pair_found
@@ -36,11 +31,11 @@ class Player
   end
 
   def check_for_pairs
-    for i in 1...hand.length
-      if hand[i].number == hand[i-1].number
+    for i in 1...@hand.length
+      if @hand[i].number == @hand[i-1].number
         self.pair_found
-        self.remove_card(hand[i])
-        self.remove_card(hand[i-1])
+        self.remove_card(@hand[i])
+        self.remove_card(@hand[i-1])
         self.check_for_pairs
       end
     end
@@ -48,7 +43,7 @@ class Player
 
   def show_hand
     hand_string = ''
-    hand.each do |card|
+    @hand.each do |card|
       hand_string += "[#{card.number} of #{card.suit}] "
     end
     hand_string

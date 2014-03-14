@@ -8,9 +8,9 @@ class Game
     hand_two = new_game.build_hand
     new_game.player_one.set_hand(hand_one)
     new_game.player_two.set_hand(hand_two)
-    @asking_player = @player_one
-    @responding_player = @player_two
-    @winner = ''
+    new_game.asking_player = new_game.player_one
+    new_game.responding_player = new_game.player_two
+    new_game.winner = ''
     new_game
   end
 
@@ -38,6 +38,9 @@ class Game
   end
 
   def ask_for_card(card)
+    #Needs to be fixed -
+    #card value passed in from ui does not match up
+    #needs to match up to card object
     if @responding_player.match_card?(card)
       @asking_player.add_card(card)
       @responding_player.remove_card(card)
